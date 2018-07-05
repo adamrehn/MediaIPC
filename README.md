@@ -21,8 +21,8 @@ Example use cases:
 The following components are required in order to build libMediaIPC from source:
 
 - A modern, C++11-compliant compiler
-- CMake 3.8 or newer
-- Boost 1.64 or newer (only the headers are needed)
+- [CMake](https://cmake.org/) 3.8 or newer
+- [Boost](https://www.boost.org/) 1.64 or newer (only the headers are needed)
 
 Only a C++11-compliant compiler is needed to build applications that link against libMediaIPC. The Boost headers are only used inside the private translation units of the library, which means that **client applications do not have a dependency on Boost.**
 
