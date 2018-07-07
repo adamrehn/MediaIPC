@@ -48,8 +48,8 @@ MediaProducer::MediaProducer(const std::string& prefix, const ControlBlock& cb)
 		this->controlBlock->lastBuffer = VideoBuffer::FrontBuffer;
 		this->controlBlock->ringHead = 0;
 		
-		//Create the shared memory for the video data
-		uint64_t videoBufsize = this->controlBlock->calculateVideoBufsize();
+		//Create the shared memory for the video data (ensuring the size is non-zero)
+		uint64_t videoBufsize = std::max((uint64_t)1, this->controlBlock->calculateVideoBufsize());
 		this->videoFrontBuffer = producerMemory(names.videoFrontBuffer, videoBufsize);
 		this->videoBackBuffer = producerMemory(names.videoBackBuffer, videoBufsize);
 		
@@ -57,8 +57,8 @@ MediaProducer::MediaProducer(const std::string& prefix, const ControlBlock& cb)
 		IPCUtils::fillMemory(*this->videoFrontBuffer->mapped, 0);
 		IPCUtils::fillMemory(*this->videoBackBuffer->mapped, 0);
 		
-		//Create the shared memory for the audio data
-		uint64_t audioBufsize = this->controlBlock->calculateAudioBufsize();
+		//Create the shared memory for the audio data (ensuring the size is non-zero)
+		uint64_t audioBufsize = std::max((uint64_t)1, this->controlBlock->calculateAudioBufsize());
 		this->audioBuffer = producerMemory(names.audioBuffer, audioBufsize);
 		
 		//Zero-out the audio buffer

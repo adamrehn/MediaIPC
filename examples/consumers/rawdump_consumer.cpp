@@ -12,16 +12,26 @@ using std::ofstream;
 //Prints a control block to an output stream
 void printControlBlock(const MediaIPC::ControlBlock& cb, std::ostream& stream)
 {
-	stream << "width = " << cb.width << endl;
-	stream << "height = " << cb.height << endl;
+	//Print the video details
 	stream << "videoFormat = " << MediaIPC::FormatDetails::description(cb.videoFormat) << endl;
-	stream << "bytesPerPixel = " << (uint32_t)MediaIPC::FormatDetails::bytesPerPixel(cb.videoFormat) << endl;
-	stream << "frameRate = " << cb.frameRate << endl;
-	stream << "channels = " << cb.channels << endl;
-	stream << "sampleRate = " << cb.sampleRate << endl;
-	stream << "samplesPerBuffer = " << cb.samplesPerBuffer << endl;
+	if (cb.videoFormat != MediaIPC::VideoFormat::None)
+	{
+		stream << "width = " << cb.width << endl;
+		stream << "height = " << cb.height << endl;
+		stream << "bytesPerPixel = " << (uint32_t)MediaIPC::FormatDetails::bytesPerPixel(cb.videoFormat) << endl;
+		stream << "frameRate = " << cb.frameRate << endl;
+	}
+	
+	//Print the audio details
 	stream << "audioFormat = " << MediaIPC::FormatDetails::description(cb.audioFormat) << endl;
-	stream << "bytesPerSample = " << (uint32_t)MediaIPC::FormatDetails::bytesPerSample(cb.audioFormat) << endl;
+	if (cb.audioFormat != MediaIPC::AudioFormat::None)
+	{
+		stream << "channels = " << cb.channels << endl;
+		stream << "sampleRate = " << cb.sampleRate << endl;
+		stream << "samplesPerBuffer = " << cb.samplesPerBuffer << endl;
+		stream << "bytesPerSample = " << (uint32_t)MediaIPC::FormatDetails::bytesPerSample(cb.audioFormat) << endl;
+	}
+	
 	stream << endl;
 }
 

@@ -17,8 +17,8 @@ class ControlBlock
 {
 	public:
 		
-		//Creates a new control block with zeroed-out values
-		//(Note that **all** of the parameters will need to be set before the control block can be used)
+		//Creates a blank control block
+		//(Note that the relevant video and/or audio parameters will need to be set before the control block can be used)
 		ControlBlock();
 		
 		//Determines the number of bytes required to hold the video framebuffer, based on our video parameters

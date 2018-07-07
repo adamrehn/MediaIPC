@@ -9,7 +9,7 @@ uint8_t FormatDetails::bytesPerSample(AudioFormat format)
 		#define AUDIO_FORMAT(name, bytes, description) case AudioFormat::name: return bytes;
 		#include "../public/AudioFormats.inc"
 		
-		case AudioFormat::Unknown:
+		case AudioFormat::None:
 		default:
 			return 0;
 	}
@@ -22,7 +22,7 @@ uint8_t FormatDetails::bytesPerPixel(VideoFormat format)
 		#define VIDEO_FORMAT(name, bytes, description) case VideoFormat::name: return bytes;
 		#include "../public/VideoFormats.inc"
 		
-		case VideoFormat::Unknown:
+		case VideoFormat::None:
 		default:
 			return 0;
 	}
@@ -35,9 +35,9 @@ std::string FormatDetails::description(AudioFormat format)
 		#define AUDIO_FORMAT(name, bytes, description) case AudioFormat::name: return description;
 		#include "../public/AudioFormats.inc"
 		
-		case AudioFormat::Unknown:
+		case AudioFormat::None:
 		default:
-			return "Unknown audio format";
+			return "No audio";
 	}
 }
 
@@ -48,9 +48,9 @@ std::string FormatDetails::description(VideoFormat format)
 		#define VIDEO_FORMAT(name, bytes, description) case VideoFormat::name: return description;
 		#include "../public/VideoFormats.inc"
 		
-		case VideoFormat::Unknown:
+		case VideoFormat::None:
 		default:
-			return "Unknown video format";
+			return "No video";
 	}
 }
 

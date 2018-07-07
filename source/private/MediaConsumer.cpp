@@ -84,6 +84,11 @@ bool MediaConsumer::streamIsActive()
 
 void MediaConsumer::videoLoop()
 {
+	//Don't bother sampling anything if no video data is being transmitted
+	if (this->controlBlock->videoFormat == VideoFormat::None) {
+		return;
+	}
+	
 	//Allocate memory to hold the last sampled video framebuffer
 	uint32_t videoBufsize = this->videoFrontBuffer->mapped->get_size();
 	std::unique_ptr<uint8_t[]> videoTempBuf(new uint8_t[videoBufsize]);
@@ -128,6 +133,11 @@ void MediaConsumer::videoLoop()
 
 void MediaConsumer::audioLoop()
 {
+	//Don't bother sampling anything if no audio data is being transmitted
+	if (this->controlBlock->audioFormat == AudioFormat::None) {
+		return;
+	}
+	
 	//Allocate memory to hold the last sampled audio samples
 	uint32_t audioBufsize = this->audioBuffer->mapped->get_size();
 	std::unique_ptr<uint8_t[]> audioTempBuf(new uint8_t[audioBufsize]);

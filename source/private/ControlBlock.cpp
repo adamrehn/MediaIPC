@@ -9,23 +9,33 @@ ControlBlock::ControlBlock()
 	this->width = 0;
 	this->height = 0;
 	this->frameRate = 0;
-	this->videoFormat = VideoFormat::Unknown;
+	this->videoFormat = VideoFormat::None;
 	
 	this->channels = 0;
 	this->sampleRate = 0;
 	this->samplesPerBuffer = 0;
-	this->audioFormat = AudioFormat::Unknown;
+	this->audioFormat = AudioFormat::None;
 	
 	this->active = false;
 	this->lastBuffer = VideoBuffer::FrontBuffer;
 	this->ringHead = 0;
 }
 
-uint64_t ControlBlock::calculateVideoBufsize() const {
+uint64_t ControlBlock::calculateVideoBufsize() const
+{
+	if (this->videoFormat == VideoFormat::None) {
+		return 0;
+	}
+	
 	return this->width * this->height * FormatDetails::bytesPerPixel(this->videoFormat);
 }
 
-uint64_t ControlBlock::calculateAudioBufsize() const {
+uint64_t ControlBlock::calculateAudioBufsize() const
+{
+	if (this->audioFormat == AudioFormat::None) {
+		return 0;
+	}
+	
 	return this->channels * FormatDetails::bytesPerSample(this->audioFormat) * this->samplesPerBuffer;
 }
 

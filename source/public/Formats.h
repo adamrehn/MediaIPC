@@ -11,7 +11,7 @@ enum class AudioFormat : uint8_t
 	#define AUDIO_FORMAT(name, bytes, description) name,
 	#include "AudioFormats.inc"
 	
-	Unknown = 255
+	None = 255
 };
 
 enum class VideoFormat : uint8_t
@@ -19,7 +19,7 @@ enum class VideoFormat : uint8_t
 	#define VIDEO_FORMAT(name, bytes, description) name,
 	#include "VideoFormats.inc"
 	
-	Unknown = 255
+	None = 255
 };
 
 class FormatDetails
