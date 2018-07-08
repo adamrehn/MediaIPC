@@ -25,6 +25,9 @@ int main (int argc, char* argv[])
 {
 	try
 	{
+		//If the user supplied a prefix string, use it instead of our default
+		std::string prefix = ((argc > 1) ? argv[1] : "TestPrefix");
+		
 		//Populate the control block to send to the consumer
 		MediaIPC::ControlBlock cb;
 		cb.width = 1920;
@@ -37,7 +40,7 @@ int main (int argc, char* argv[])
 		cb.audioFormat = MediaIPC::AudioFormat::PCM_F32LE;
 		
 		//Start producing data
-		MediaIPC::MediaProducer producer("TestPrefix-", cb);
+		MediaIPC::MediaProducer producer(prefix, cb);
 		
 		//Allow the user to terminate the stream
 		bool shouldExit = false;

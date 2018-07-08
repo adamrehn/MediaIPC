@@ -39,6 +39,9 @@ int main (int argc, char* argv[])
 {
 	try
 	{
+		//If the user supplied a prefix string, use it instead of our default
+		std::string prefix = ((argc > 1) ? argv[1] : "TestPrefix");
+		
 		//Create our consumer delegate
 		std::unique_ptr<MediaIPC::FunctionConsumerDelegate> delegate( new MediaIPC::FunctionConsumerDelegate() );
 		
@@ -79,7 +82,7 @@ int main (int argc, char* argv[])
 		
 		//Consume data until the stream completes
 		cout << "Awaiting control block from producer process..." << endl << endl;
-		MediaIPC::MediaConsumer consumer("TestPrefix-", std::move(delegate));
+		MediaIPC::MediaConsumer consumer(prefix, std::move(delegate));
 		videoFile.close();
 		audioFile.close();
 		cout << "Stream complete." << endl;
