@@ -92,7 +92,7 @@ void MediaProducer::submitVideoFrame(void* buffer, uint64_t length)
 		auto& dest = (bufToUse == VideoBuffer::FrontBuffer) ? this->videoFrontBuffer : this->videoBackBuffer;
 		
 		MutexLock lock(*mutex->mutex);
-		std::memcpy(dest->mapped->get_address(), buffer, std::min(length, dest->mapped->get_size()));
+		std::memcpy(dest->mapped->get_address(), buffer, std::min(length, (uint64_t)(dest->mapped->get_size())));
 	}
 	
 	//Update the "last buffer" flag

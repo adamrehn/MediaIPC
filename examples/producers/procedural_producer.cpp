@@ -1,3 +1,7 @@
+#ifdef _WIN32
+#define _USE_MATH_DEFINES
+#endif
+
 #include <chrono>
 #include <cmath>
 #include <cstring>
