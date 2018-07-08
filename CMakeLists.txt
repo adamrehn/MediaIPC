@@ -6,11 +6,17 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Enable all compiler warnings
+# Enable all relevant compiler warnings
 if (MSVC)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /MD")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W2 /MD")
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+endif()
+
+# If we are using the Conan CMake generator, include the generated file
+if(EXISTS "${CMAKE_SOURCE_DIR}/conanbuildinfo.cmake")
+	include("${CMAKE_SOURCE_DIR}/conanbuildinfo.cmake")
+	conan_basic_setup()
 endif()
 
 # Locate the Boost headers
