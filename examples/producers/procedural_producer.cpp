@@ -15,6 +15,7 @@ using std::endl;
 
 //When building your own producers, this will be #include <MediaIPC/MediaProducer.h>
 #include "../../source/public/MediaProducer.h"
+#include "../common/common.h"
 
 //Generates a sinewave audio signal
 double sinewave(uint64_t timestep, double frequency, double sampleRate) {

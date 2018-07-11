@@ -8,32 +8,7 @@ using std::ofstream;
 
 //When building your own consumers, this will be #include <MediaIPC/MediaConsumer.h>
 #include "../../source/public/MediaConsumer.h"
-
-//Prints a control block to an output stream
-void printControlBlock(const MediaIPC::ControlBlock& cb, std::ostream& stream)
-{
-	//Print the video details
-	stream << "videoFormat = " << MediaIPC::FormatDetails::description(cb.videoFormat) << endl;
-	if (cb.videoFormat != MediaIPC::VideoFormat::None)
-	{
-		stream << "width = " << cb.width << endl;
-		stream << "height = " << cb.height << endl;
-		stream << "bytesPerPixel = " << (uint32_t)MediaIPC::FormatDetails::bytesPerPixel(cb.videoFormat) << endl;
-		stream << "frameRate = " << cb.frameRate << endl;
-	}
-	
-	//Print the audio details
-	stream << "audioFormat = " << MediaIPC::FormatDetails::description(cb.audioFormat) << endl;
-	if (cb.audioFormat != MediaIPC::AudioFormat::None)
-	{
-		stream << "channels = " << cb.channels << endl;
-		stream << "sampleRate = " << cb.sampleRate << endl;
-		stream << "samplesPerBuffer = " << cb.samplesPerBuffer << endl;
-		stream << "bytesPerSample = " << (uint32_t)MediaIPC::FormatDetails::bytesPerSample(cb.audioFormat) << endl;
-	}
-	
-	stream << endl;
-}
+#include "../common/common.h"
 
 int main (int argc, char* argv[])
 {

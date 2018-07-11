@@ -45,11 +45,22 @@ if (BUILD_EXAMPLES)
 		set(LIBRARIES ${LIBRARIES} pthread rt)
 	endif()
 	
-	# Build the examples
-	add_executable(procedural_producer examples/producers/procedural_producer.cpp)
-	add_executable(rawdump_consumer examples/consumers/rawdump_consumer.cpp)
+	# Build the examples that only require the Boost headers
+	set(EXAMPLES_COMMON examples/common/common.cpp)
+	add_executable(procedural_producer examples/producers/procedural_producer.cpp ${EXAMPLES_COMMON})
+	add_executable(rawdump_consumer examples/consumers/rawdump_consumer.cpp ${EXAMPLES_COMMON})
 	target_link_libraries(procedural_producer MediaIPC ${LIBRARIES})
 	target_link_libraries(rawdump_consumer MediaIPC ${LIBRARIES})
+	
+	# Determine if we have Boost.System
+	find_package(Boost 1.64 COMPONENTS system)
+	if (Boost_SYSTEM_FOUND)
+		
+		# Build the examples that require Boost.System
+		add_executable(ffmpeg_consumer examples/consumers/ffmpeg_consumer.cpp ${EXAMPLES_COMMON})
+		target_link_libraries(ffmpeg_consumer MediaIPC ${LIBRARIES} ${Boost_LIBRARIES})
+		
+	endif()
 	
 endif()
 
