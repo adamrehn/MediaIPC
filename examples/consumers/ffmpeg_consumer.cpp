@@ -63,7 +63,7 @@ int main (int argc, char* argv[])
 		{MediaIPC::VideoFormat::None,     "none"}
 	};
 	
-	//Our video format name mappings for ffmpeg
+	//Our audio format name mappings for ffmpeg
 	std::map<MediaIPC::AudioFormat, std::string> audioFormats =
 	{
 		{MediaIPC::AudioFormat::PCM_S8,    "s8"},

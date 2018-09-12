@@ -48,8 +48,10 @@ if (BUILD_EXAMPLES)
 	# Build the examples that only require the Boost headers
 	set(EXAMPLES_COMMON examples/common/common.cpp)
 	add_executable(procedural_producer examples/producers/procedural_producer.cpp ${EXAMPLES_COMMON})
+	add_executable(ffmpeg_streaming_consumer examples/consumers/ffmpeg_streaming_consumer.cpp ${EXAMPLES_COMMON})
 	add_executable(rawdump_consumer examples/consumers/rawdump_consumer.cpp ${EXAMPLES_COMMON})
 	target_link_libraries(procedural_producer MediaIPC ${LIBRARIES})
+	target_link_libraries(ffmpeg_streaming_consumer MediaIPC ${LIBRARIES} ${Boost_LIBRARIES})
 	target_link_libraries(rawdump_consumer MediaIPC ${LIBRARIES})
 	
 	# Determine if we have Boost.System
