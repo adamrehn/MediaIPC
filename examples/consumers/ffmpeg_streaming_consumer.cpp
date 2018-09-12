@@ -90,12 +90,13 @@ int main (int argc, char* argv[])
 		{
 			//Build our usage string
 			stringstream usage;
-			usage << "Usage:\nffmpeg_streaming_consumer PREFIX PROFILE VIDEO_DEST AUDIO_DEST\n\n";
+			usage << "Usage:\n  ffmpeg_streaming_consumer PREFIX PROFILE VIDEO_DEST AUDIO_DEST\n\n";
+			usage << "  (Where VIDEO_DEST and AUDIO_DEST are RTP streaming endpoints)\n\n";
 			usage << "Supported profiles:\n";
 			for (auto pair : profiles) {
 				usage << "  " << pair.first << "\n";
 			}
-			usage << "\nExample:\nffmpeg_streaming_consumer TestPrefix vp8 127.0.0.1:5002 127.0.0.1:5004\n";
+			usage << "\nExample:\n  ffmpeg_streaming_consumer TestPrefix vp8 127.0.0.1:5002 127.0.0.1:5004\n";
 			
 			//Display usage and exit
 			throw std::runtime_error("all required arguments must be specified.\n\n" + usage.str());
@@ -138,9 +139,6 @@ int main (int argc, char* argv[])
 			videoCommand << " -pixel_format " << videoFormats.at(cb.videoFormat);
 			videoCommand << " -video_size " << cb.width << "x" << cb.height;
 			videoCommand << " -framerate " << cb.frameRate;
-			videoCommand << " -re";
-			videoCommand << " -thread_queue_size 512";
-			videoCommand << " -blocksize " << cb.calculateVideoBufsize();
 			videoCommand << " -i " << videoPipe.path();
 			videoCommand << " -an";
 			videoCommand << " -pix_fmt yuv420p";
@@ -153,9 +151,6 @@ int main (int argc, char* argv[])
 			audioCommand << " -f " << audioFormats.at(cb.audioFormat);
 			audioCommand << " -ac " << cb.channels;
 			audioCommand << " -ar " << cb.sampleRate;
-			audioCommand << " -re";
-			audioCommand << " -thread_queue_size 512";
-			audioCommand << " -blocksize " << cb.calculateAudioBufsize();
 			audioCommand << " -i " << audioPipe.path();
 			audioCommand << " -vn";
 			audioCommand << " -c:a " << profile.acodec << " " << profile.aflags;
