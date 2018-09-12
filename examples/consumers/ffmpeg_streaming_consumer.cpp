@@ -181,12 +181,12 @@ int main (int argc, char* argv[])
 		});
 		
 		//Bind our callback for when video data is received
-		delegate->setVideoHandler([&videoPipe, &videoThread](const uint8_t* buffer, uint64_t length) {
+		delegate->setVideoHandler([&videoPipe](const uint8_t* buffer, uint64_t length) {
 			videoPipe.write(buffer, length);
 		});
 		
 		//Bind our callback for when audio data is received
-		delegate->setAudioHandler([&audioPipe, &audioThread](const uint8_t* buffer, uint64_t length) {
+		delegate->setAudioHandler([&audioPipe](const uint8_t* buffer, uint64_t length) {
 			audioPipe.write(buffer, length);
 		});
 		
