@@ -79,8 +79,9 @@ int main (int argc, char* argv[])
 	//Our streaming profiles
 	std::map<string, StreamingProfile> profiles =
 	{
-		{"h264", StreamingProfile("libx264", "-tune zerolatency", "aac", "")},
-		{"vp8",  StreamingProfile("libvpx", "-deadline realtime", "libopus", "-ac 2")}
+		{"nvenc", StreamingProfile("h264_nvenc", "-b:v 512k -profile:v baseline -level auto -preset ll -zerolatency true -delay 0 -cq 40", "aac", "")},
+		{"h264",  StreamingProfile("libx264", "-tune zerolatency -preset ultrafast -profile:v baseline -level 3.0 -crf 28 -maxrate 512000 -bufsize 1M", "aac", "")},
+		{"vp8",   StreamingProfile("libvpx", "-deadline realtime", "libopus", "-ac 2")}
 	};
 	
 	try
